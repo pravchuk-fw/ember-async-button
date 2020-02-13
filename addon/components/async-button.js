@@ -22,6 +22,7 @@ const ButtonComponent = Component.extend(positionalParamsMixin, {
   classNames: ['async-button'],
   classNameBindings: ['textState'],
   attributeBindings: ['disabled', 'type', '_href:href', 'tabindex'],
+  continueAndSubmit: false,
 
   type: 'submit',
 
@@ -38,6 +39,8 @@ const ButtonComponent = Component.extend(positionalParamsMixin, {
   }),
 
   click() {
+    if(this.attrs.continueAndSubmit)
+      return true;
     let params = getWithDefault(this, 'params', []);
     let callbackHandler = (promise) => {
       set(this, 'promise', promise);
